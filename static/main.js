@@ -1,5 +1,39 @@
 let screen = null
 
+let operators = {
+    "+": function add(a, b) {
+        return a + b;
+    },
+    "-": function sub(a, b) {
+        return a - b;
+    },
+    "*": function mul(a, b) {
+        return a * b;
+    },
+    "/": function div(a, b) {
+        let result = a / b;
+        if (result < 0) {
+            return Math.ceil(result);
+        } else return Math.floor(result);
+    }
+};
+var evalRPN = function (tokens) {
+    let result = 0;
+    let stack1 = [];
+    while (tokens.length > 0) {
+        let item = tokens.shift();
+        if (operators[item]) {
+            let b = parseInt(stack1.pop());
+            let a = parseInt(stack1.pop());
+            result = operators[item](a, b);
+            stack1.push(result);
+        } else {
+            stack1.push(item);
+        }
+    }
+    return stack1.pop();
+};
+
 function priority(operation) {
     if (operation == '+' || operation == '-') {
         return 1;
@@ -78,7 +112,7 @@ function clickHandler(char) {
             screen.value = '';
             break;
         case '=':
-            console.log("= pressed");
+            screen.value = evalRPN(compile(screen.value).split(' '))
             break;
         default:
             screen.value += char;
@@ -91,8 +125,8 @@ window.onload = function () {
     let key_buttons = document.getElementsByClassName("key")
     for (let i = 0; i < key_buttons.length; i++) {
         let key_button = key_buttons.item(i)
-        key_button.onclick = function() { 
-            clickHandler(key_button.innerHTML) 
+        key_button.onclick = function () {
+            clickHandler(key_button.innerHTML)
         }
     }
 }
