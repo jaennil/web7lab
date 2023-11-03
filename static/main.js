@@ -1,40 +1,5 @@
 let screen = null
 
-let operators = {
-    "+": function add(a, b) {
-        return a + b;
-    },
-    "-": function sub(a, b) {
-        return a - b;
-    },
-    "*": function mul(a, b) {
-        return a * b;
-    },
-    "/": function div(a, b) {
-        let result = a / b;
-        if (result < 0) {
-            return Math.ceil(result);
-        } else return Math.floor(result);
-    }
-};
-
-function evalRPN(tokens) {
-    let result = 0;
-    let stack1 = [];
-    while (tokens.length > 0) {
-        let item = tokens.shift();
-        if (operators[item]) {
-            let b = parseInt(stack1.pop());
-            let a = parseInt(stack1.pop());
-            result = operators[item](a, b);
-            stack1.push(result);
-        } else {
-            stack1.push(item);
-        }
-    }
-    return stack1.pop();
-};
-
 function priority(operation) {
     if (operation == '+' || operation == '-') {
         return 1;
@@ -104,7 +69,46 @@ function compile(str) {
 }
 
 function evaluate(str) {
-    screen.value = evalRPN(compile(str).split(' '))
+    let compiled_string = compile(str)
+    let tokens = compiled_string.split(' ')
+    let result = 0;
+    let stack = [];
+    while (tokens.length > 0) {
+        let item = tokens.shift();
+        let a, b;
+        switch (item) {
+            case '+':
+                b = parseInt(stack.pop());
+                a = parseInt(stack.pop());
+                stack.push(a + b);
+                break;
+
+            case '-':
+                b = parseInt(stack.pop());
+                a = parseInt(stack.pop());
+                stack.push(a - b);
+                break;
+            case '*':
+                b = parseInt(stack.pop());
+                a = parseInt(stack.pop());
+                stack.push(a * b);
+                break;
+            case '/':
+                b = parseInt(stack.pop());
+                a = parseInt(stack.pop());
+                result = a / b;
+                if (result < 0) {
+                    stack.push(Math.ceil(result));
+                } else {
+                    stack.push(Math.floor(result));
+                }
+                break;
+            default:
+                stack.push(item);
+                break;
+        }
+    }
+    return stack.pop();
 }
 
 function clickHandler(char) {
@@ -113,7 +117,7 @@ function clickHandler(char) {
             screen.value = '';
             break;
         case '=':
-            evaluate(screen.value)
+            screen.value = evaluate(screen.value)
             break;
         default:
             screen.value += char;
