@@ -17,7 +17,8 @@ let operators = {
         } else return Math.floor(result);
     }
 };
-var evalRPN = function (tokens) {
+
+function evalRPN(tokens) {
     let result = 0;
     let stack1 = [];
     while (tokens.length > 0) {
@@ -103,7 +104,7 @@ function compile(str) {
 }
 
 function evaluate(str) {
-    // your code here
+    screen.value = evalRPN(compile(str).split(' '))
 }
 
 function clickHandler(char) {
@@ -112,7 +113,7 @@ function clickHandler(char) {
             screen.value = '';
             break;
         case '=':
-            screen.value = evalRPN(compile(screen.value).split(' '))
+            evaluate(screen.value)
             break;
         default:
             screen.value += char;
