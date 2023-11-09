@@ -1,0 +1,52 @@
+.calc-container {
+    border: 1px solid black;
+    border-radius: 20px;
+    /* padding-top: 30px; */
+}
+
+.screen {
+    background: red;
+    height: 50px;
+    border-radius: 20px 20px 0% 0%;
+    text-align: right;
+    align-items: center;
+    line-height: 50px;
+    padding-right: 10px;
+    font-family: Orbitron;
+    color: white;
+    font-size: 20pt;
+    margin-bottom: 10px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+body, html, main{
+    height: 100%;
+}
+
+.digits {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+}
+
+.key {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-family: Prompt;
+    font-size: 14pt;
+}
+
+.other {
+    display: grid;
+    grid-template-columns: 50px 50px;
+}
+
+.buttons {
+    display: flex;
+}

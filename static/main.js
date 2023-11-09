@@ -114,13 +114,13 @@ function evaluate(str) {
 function clickHandler(char) {
     switch (char) {
         case 'C':
-            screen.value = '';
+            screen.innerHTML = '';
             break;
         case '=':
-            screen.value = evaluate(screen.value)
+            screen.innerHTML = evaluate(screen.innerHTML)
             break;
         default:
-            screen.value += char;
+            screen.innerHTML += char;
             break;
     }
 }
