@@ -78,24 +78,24 @@ function evaluate(str) {
         let a, b;
         switch (item) {
             case '+':
-                b = parseInt(stack.pop());
-                a = parseInt(stack.pop());
+                b = parseFloat(stack.pop());
+                a = parseFloat(stack.pop());
                 stack.push(a + b);
                 break;
 
             case '-':
-                b = parseInt(stack.pop());
-                a = parseInt(stack.pop());
+                b = parseFloat(stack.pop());
+                a = parseFloat(stack.pop());
                 stack.push(a - b);
                 break;
             case '*':
-                b = parseInt(stack.pop());
-                a = parseInt(stack.pop());
+                b = parseFloat(stack.pop());
+                a = parseFloat(stack.pop());
                 stack.push(a * b);
                 break;
             case '/':
-                b = parseInt(stack.pop());
-                a = parseInt(stack.pop());
+                b = parseFloat(stack.pop());
+                a = parseFloat(stack.pop());
                 result = a / b;
                 if (result < 0) {
                     stack.push(Math.ceil(result));
