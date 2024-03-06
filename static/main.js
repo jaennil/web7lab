@@ -86,18 +86,18 @@ function evaluate(str) {
       case "+":
         b = parseFloat(stack.pop());
         a = parseFloat(stack.pop());
-        stack.push(a + b);
+        stack.push((a + b).toFixed(6));
         break;
 
       case "-":
         b = parseFloat(stack.pop());
         a = parseFloat(stack.pop());
-        stack.push(a - b);
+        stack.push((a - b).toFixed(6));
         break;
       case "*":
         b = parseFloat(stack.pop());
         a = parseFloat(stack.pop());
-        stack.push(a * b);
+        stack.push((a * b).toFixed(6));
         break;
       case "/":
         b = parseFloat(stack.pop());
